@@ -1,0 +1,53 @@
+set interfaces ethernet eth0 address '100.0.10.100/24'
+set interfaces ethernet eth0 hw-id '50:00:00:01:00:00'
+set interfaces ethernet eth1 address '10.0.10.100/24'
+set interfaces ethernet eth1 hw-id '50:00:00:01:00:01'
+set interfaces ethernet eth2 hw-id '50:00:00:01:00:02'
+set interfaces ethernet eth3 hw-id '50:00:00:01:00:03'
+set interfaces loopback lo
+set interfaces tunnel tun0 address '42.0.0.1/30'
+set interfaces tunnel tun0 encapsulation 'gre'
+set interfaces tunnel tun0 mtu '1400'
+set interfaces tunnel tun0 remote '100.0.20.100'
+set interfaces tunnel tun0 source-address '100.0.10.100'
+set interfaces tunnel tun1 address '42.1.0.1/30'
+set interfaces tunnel tun1 encapsulation 'gre'
+set interfaces tunnel tun1 mtu '1400'
+set interfaces tunnel tun1 remote '100.0.30.100'
+set interfaces tunnel tun1 source-address '100.0.10.100'
+set protocols static route 0.0.0.0/0 next-hop 100.0.10.1
+set protocols static route 10.0.20.0/24 next-hop 42.0.0.2
+set protocols static route 10.0.30.0/24 next-hop 42.1.0.2
+set protocols static route 100.0.20.0/24 next-hop 100.0.10.1
+set system config-management commit-revisions '100'
+set system conntrack modules ftp
+set system conntrack modules h323
+set system conntrack modules nfs
+set system conntrack modules pptp
+set system conntrack modules sip
+set system conntrack modules sqlnet
+set system conntrack modules tftp
+set system console device ttyS0 speed '115200'
+set system host-name 'vyos'
+set system login user vyos authentication encrypted-password '$6$SzD0ejGvBRzmQA$s0rK1feJvqiE6ScmxrQUiijp9iyibUWYXox812mSc96faIXaHGgc3zWOphw/8I4AJEl4pPQoPLQaqjSXy6MGU.'
+set system login user vyos authentication plaintext-password ''
+set system ntp server time1.vyos.net
+set system ntp server time2.vyos.net
+set system ntp server time3.vyos.net
+set system syslog global facility all level 'info'
+set system syslog global facility protocols level 'debug'
+set vpn ipsec esp-group espgroup mode 'tunnel'
+set vpn ipsec esp-group espgroup proposal 1 encryption 'aes256'
+set vpn ipsec esp-group espgroup proposal 1 hash 'sha256'
+set vpn ipsec ike-group ikegroup key-exchange 'ikev1'
+set vpn ipsec ike-group ikegroup proposal 1 dh-group '2'
+set vpn ipsec ike-group ikegroup proposal 1 encryption 'aes256'
+set vpn ipsec ike-group ikegroup proposal 1 hash 'sha256'
+set vpn ipsec ipsec-interfaces interface 'eth0'
+set vpn ipsec site-to-site peer 100.0.30.100 authentication mode 'pre-shared-secret'
+set vpn ipsec site-to-site peer 100.0.30.100 authentication pre-shared-secret 'MYSECRETKEY'
+set vpn ipsec site-to-site peer 100.0.30.100 default-esp-group 'espgroup'
+set vpn ipsec site-to-site peer 100.0.30.100 ike-group 'ikegroup'
+set vpn ipsec site-to-site peer 100.0.30.100 local-address '100.0.10.100'
+set vpn ipsec site-to-site peer 100.0.30.100 tunnel 1 protocol 'gre'
+vyos@vyos
