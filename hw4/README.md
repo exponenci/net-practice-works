@@ -1,4 +1,4 @@
-## Топология:
+## Схема:
 ![alt text](./screens/topology.PNG)
 
 ## Интерфейсы:
