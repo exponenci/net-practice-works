@@ -35,7 +35,7 @@ def main():
         return
 
     # find MTU by bin search
-    left, right = 1, 1501 - 28
+    left, right = 1, 1502 - 28
     while left + 1 < right:
         mtu = (left + right) // 2
         if is_ping_ok(host, mtu):
