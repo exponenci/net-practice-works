@@ -26,7 +26,7 @@ def main():
     host = parser.parse_args().host
 
     # check whether given host is valid and do we have access to ICMP
-    rc = is_ping_ok(host, 1, strict=False)
+    rc = is_ping_ok(host, 0, strict=False)
     if rc == 127:
         print('Has no access to ICMP')
         return
@@ -35,7 +35,7 @@ def main():
         return
 
     # find MTU by bin search
-    left, right = 1, 1502 - 28
+    left, right = 0, 1502 - 28
     while left + 1 < right:
         mtu = (left + right) // 2
         if is_ping_ok(host, mtu):
